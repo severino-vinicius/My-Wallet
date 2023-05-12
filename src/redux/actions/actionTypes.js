@@ -1,0 +1,3 @@
+const USER_REQUEST_LOGIN = 'USER_REQUEST_LOGIN';
+
+export default USER_REQUEST_LOGIN;
