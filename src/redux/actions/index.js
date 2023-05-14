@@ -1,14 +1,14 @@
 // Coloque aqui suas actions
-import USER_REQUEST_LOGIN from './actionTypes';
+import { USER_REQUEST_LOGIN, ACTION_FETCH_REQUEST } from './actionTypes';
 
-const userLogin = ({ email }) => ({
+export const userLogin = ({ email }) => ({
   type: USER_REQUEST_LOGIN,
   dataLogin: {
     email,
   },
 });
 
-export default userLogin;
-// export const userLogin = () => ({
-//   type: ,
-// });
+export const fetchRequest = (payload) => ({
+  type: ACTION_FETCH_REQUEST,
+  payload,
+});
