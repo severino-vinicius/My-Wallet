@@ -3,9 +3,31 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  state = {
+    total: 0,
+  };
+
+  componentDidMount() {
+    this.handleTotal();
+  }
+
+  handleTotal = () => {
+    const { expenses } = this.props;
+
+    const sumQuot = expenses.reduce((acc, { currency, value, exchangeRates }) => {
+      const expenseValue = parseFloat(value) * exchangeRates[currency].ask;
+      return acc + expenseValue;
+    }, 0);
+    console.log(sumQuot);
+    this.setState({
+      total: sumQuot,
+    });
+  };
+
   render() {
     const { email } = this.props;
-    const valorInicial = 0;
+    const { total } = this.state;
+    // const total = 0;
     return (
       <header>
         <div>
@@ -15,7 +37,7 @@ class Header extends Component {
         </div>
         <div>
           <p data-testid="total-field">
-            {`Despesa Total: ${valorInicial}` }
+            {`Despesa Total: ${total}` }
           </p>
         </div>
         <div>
@@ -31,6 +53,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   ...state.user,
+  ...state.wallet,
 });
 
 Header.propTypes = {
