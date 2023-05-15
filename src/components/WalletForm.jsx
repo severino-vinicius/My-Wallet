@@ -39,6 +39,13 @@ class WalletForm extends Component {
       id: prevState.id + 1,
     }));
     dispatch(fetchNewExpense(this.state));
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'money',
+      tag: 'food',
+    });
   };
 
   render() {
