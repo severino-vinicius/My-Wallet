@@ -10,7 +10,7 @@ class Header extends Component {
       const expenseValue = parseFloat(value) * exchangeRates[currency].ask;
       return acc + expenseValue;
     }, 0);
-    return Number(sumQuot.toFixed(2));
+    return sumQuot;
   };
 
   render() {
@@ -26,7 +26,7 @@ class Header extends Component {
         </div>
         <div>
           <p data-testid="total-field">
-            { total }
+            { Number(total).toFixed(2) }
           </p>
         </div>
         <div>
