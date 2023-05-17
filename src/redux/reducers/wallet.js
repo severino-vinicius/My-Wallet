@@ -2,7 +2,9 @@
 import {
   ACTION_FETCH_REQUEST,
   USER_ADD_NEW_EXPENSE,
-  USER_DELETE_EXPENSE } from '../actions/actionTypes';
+  USER_DELETE_EXPENSE,
+  USER_EDIT_EXPENSE,
+  USER_SAVE_EDITED_EXPENSE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [], // Array de strings
@@ -27,6 +29,24 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...action.payload],
+    };
+  case USER_EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.payload,
+    };
+  case USER_SAVE_EDITED_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === state.idToEdit) {
+          return { ...action.payload };
+        }
+        return expense;
+      }),
+      editor: false,
+      idToEdit: '',
     };
   default:
     return state;

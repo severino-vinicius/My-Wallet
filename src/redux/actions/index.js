@@ -3,7 +3,9 @@ import {
   USER_REQUEST_LOGIN,
   ACTION_FETCH_REQUEST,
   USER_ADD_NEW_EXPENSE,
-  USER_DELETE_EXPENSE } from './actionTypes';
+  USER_DELETE_EXPENSE,
+  USER_EDIT_EXPENSE,
+  USER_SAVE_EDITED_EXPENSE } from './actionTypes';
 import getAwesomeAPIData from '../../service/economiaAwesomeApi';
 
 export const userLogin = ({ email }) => ({
@@ -37,4 +39,14 @@ export const fetchNewExpense = (dataWallet) => async (dispatch) => {
 export const deleteExpense = (dataWithDeletedExpense) => ({
   type: USER_DELETE_EXPENSE,
   payload: dataWithDeletedExpense,
+});
+
+export const editItem = (id) => ({
+  type: USER_EDIT_EXPENSE,
+  payload: id,
+});
+
+export const saveEditedItem = (editedItem) => ({
+  type: USER_SAVE_EDITED_EXPENSE,
+  payload: editedItem,
 });

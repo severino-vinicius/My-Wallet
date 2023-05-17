@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import getAwesomeAPIData from '../service/economiaAwesomeApi';
-import { fetchRequest, fetchNewExpense } from '../redux/actions';
+import { fetchRequest, fetchNewExpense, saveEditedItem } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -24,6 +24,28 @@ class WalletForm extends Component {
     dispatch(fetchRequest(filterdcurrencies));
   }
 
+  async componentDidUpdate(prevProps) {
+    const { editor, idToEdit, expenses } = this.props;
+    if (editor && (prevProps.editor !== editor || prevProps.idToEdit !== idToEdit)) {
+      const expenseToEdit = expenses.filter((expense) => expense.id === idToEdit);
+      const { value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates } = expenseToEdit[0];
+      this.setState({
+        id: idToEdit,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates,
+      });
+    }
+  }
+
   handleChange = ({ target }) => {
     const { value, name } = target;
     this.setState({
@@ -31,9 +53,8 @@ class WalletForm extends Component {
     });
   };
 
-  onLoginClick = () => {
+  onAddClick = () => {
     const { dispatch } = this.props;
-    // const { value, description, currency, method, tag, id } = this.state;
     this.setState((prevState) => ({
       ...prevState,
       id: prevState.id + 1,
@@ -48,10 +69,21 @@ class WalletForm extends Component {
     });
   };
 
+  onEditClick = () => {
+    const { dispatch } = this.props;
+    dispatch(saveEditedItem(this.state));
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'money',
+      tag: 'food',
+    });
+  };
+
   render() {
-    const { currencies } = this.props;
+    const { currencies, editor } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    // console.log(value, description, currency, method, tag);
     return (
       <>
         <h2> Inserir Despesas </h2>
@@ -111,13 +143,17 @@ class WalletForm extends Component {
             <option value="Transporte">Transporte</option>
             <option value="Saúde">Saúde</option>
           </select>
-
-          <button
-            type="button"
-            onClick={ this.onLoginClick }
-          >
-            Adicionar despesa
-          </button>
+          {
+            !editor ? (
+              <button type="button" onClick={ this.onAddClick }>
+                Adicionar despesa
+              </button>
+            ) : (
+              <button type="button" onClick={ () => this.onEditClick() }>
+                Editar despesa
+              </button>
+            )
+          }
         </div>
       </>
     );
