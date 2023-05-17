@@ -11,8 +11,8 @@ class WalletForm extends Component {
     value: 0,
     description: '',
     currency: 'USD',
-    method: 'money',
-    tag: 'food',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
   };
 
   async componentDidMount() {
@@ -26,6 +26,7 @@ class WalletForm extends Component {
 
   async componentDidUpdate(prevProps) {
     const { editor, idToEdit, expenses } = this.props;
+    const { id } = this.state;
     if (editor && (prevProps.editor !== editor || prevProps.idToEdit !== idToEdit)) {
       const expenseToEdit = expenses.filter((expense) => expense.id === idToEdit);
       const { value,
@@ -35,6 +36,7 @@ class WalletForm extends Component {
         tag,
         exchangeRates } = expenseToEdit[0];
       this.setState({
+        oldId: id,
         id: idToEdit,
         value,
         description,
@@ -64,20 +66,22 @@ class WalletForm extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     });
   };
 
   onEditClick = () => {
     const { dispatch } = this.props;
+    const { oldId } = this.state;
     dispatch(saveEditedItem(this.state));
     this.setState({
+      id: oldId,
       value: '',
       description: '',
       currency: 'USD',
-      method: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Lazer',
     });
   };
 
