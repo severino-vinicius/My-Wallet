@@ -89,16 +89,17 @@ class WalletForm extends Component {
     const { currencies, editor } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <>
-        <h2> Inserir Despesas </h2>
-        <div>
 
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl mb-4"> Inserir Despesas </h2>
+        <div className="flex flex-wrap justify-between">
           <input
             type="number"
             name="value"
             value={ value }
             data-testid="value-input"
             placeholder="Valor"
+            className="border border-neutral-950 m-3 rounded-lg text-center"
             onChange={ this.handleChange }
           />
 
@@ -108,6 +109,7 @@ class WalletForm extends Component {
             value={ description }
             data-testid="description-input"
             placeholder="Descrição"
+            className="border border-neutral-950 m-3 rounded-lg text-center"
             onChange={ this.handleChange }
           />
 
@@ -115,6 +117,7 @@ class WalletForm extends Component {
             name="currency"
             data-testid="currency-input"
             value={ currency }
+            className="bg-white border border-neutral-950 m-3 rounded-lg text-center"
             onChange={ this.handleChange }
           >
             { currencies.map((currencie) => (
@@ -128,6 +131,7 @@ class WalletForm extends Component {
             name="method"
             data-testid="method-input"
             value={ method }
+            className="bg-white border border-neutral-950 m-3 rounded-lg text-center"
             onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
@@ -139,6 +143,7 @@ class WalletForm extends Component {
             name="tag"
             data-testid="tag-input"
             value={ tag }
+            className="bg-white border border-neutral-950 m-3 rounded-lg text-center"
             onChange={ this.handleChange }
           >
             <option value="Alimentação">Alimentação</option>
@@ -149,17 +154,25 @@ class WalletForm extends Component {
           </select>
           {
             !editor ? (
-              <button type="button" onClick={ this.onAddClick }>
+              <button
+                type="button"
+                className="w-full text-white rounded-lg mt-3 p-1 bg-blue-800"
+                onClick={ this.onAddClick }
+              >
                 Adicionar despesa
               </button>
             ) : (
-              <button type="button" onClick={ () => this.onEditClick() }>
+              <button
+                type="button"
+                className="w-full text-white rounded-lg mt-3 p-1 bg-blue-800"
+                onClick={ () => this.onEditClick() }
+              >
                 Editar despesa
               </button>
             )
           }
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -47,31 +47,31 @@ class Table extends Component {
           { expenses
             .map(({ id, value, description, currency, method, tag, exchangeRates }) => (
               <tr key={ id }>
-                <td>
+                <td className="border border-neutral-950">
                   { description }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { tag }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { method }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { Number(value).toFixed(2) }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { exchangeRates[currency].name }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { Number(exchangeRates[currency].ask).toFixed(2) }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   { (Number(exchangeRates[currency].ask) * Number(value)).toFixed(2) }
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   Real
                 </td>
-                <td>
+                <td className="border border-neutral-950">
                   <button
                     type="button"
                     data-testid="delete-btn"
@@ -84,7 +84,7 @@ class Table extends Component {
                     data-testid="edit-btn"
                     onClick={ () => this.handleEditClick(id) }
                   >
-                    Editar despesa
+                    Editar
                   </button>
                 </td>
               </tr>

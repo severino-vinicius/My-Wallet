@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Logo from '../img/TrybeWalletLogo.png';
+import UserIcon from '../img/user.png';
 
 class Header extends Component {
   handleTotal = () => {
@@ -15,26 +17,25 @@ class Header extends Component {
 
   render() {
     const { email } = this.props;
-    const total = this.handleTotal();
-    // const totalFixed = total.fixed(2);
+    const total = Number(this.handleTotal()).toFixed(2);
     return (
-      <header>
+      <header
+        className="bg-white flex justify-between items-center w-3/4 rounded-md shadow-lg"
+      >
         <div>
-          <p data-testid="email-field">
-            {`Email: ${email}`}
-          </p>
+          <img src={ Logo } alt="Logo Trybe Wallet" className="w-60 rounded-md" />
         </div>
         <div>
           <p data-testid="total-field">
-            { Number(total).toFixed(2) }
+            { `Total de despesas: ${total} BRL` }
           </p>
         </div>
-        <div>
-          <p data-testid="header-currency-field">
-            BRL
+        <div className="flex">
+          <img src={ UserIcon } alt="UserIcon" className="w-6 h-6" />
+          <p data-testid="email-field">
+            { email }
           </p>
         </div>
-
       </header>
     );
   }

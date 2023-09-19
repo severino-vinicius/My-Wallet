@@ -6,15 +6,15 @@ import Table from '../components/Table';
 class Wallet extends React.Component {
   render() {
     return (
-      <>
+      <div className="bg-slate-200 flex flex-col items-center h-full ">
         <Header />
-        <div>
-          Wallet
+        <div className="my-8">
+          <WalletForm />
         </div>
-        <WalletForm />
-        <hr />
-        <Table />
-      </>
+        <div>
+          <Table />
+        </div>
+      </div>
     );
   }
 }
